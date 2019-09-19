@@ -1,3 +1,4 @@
+<!--
 <template>
   <card class="card" :title="title">
     <div>
@@ -70,3 +71,4 @@ export default {
 </script>
 <style>
 </style>
+-->

@@ -1,3 +1,4 @@
+<!-- 
 <template>
   <card class="card-user">
     <div slot="image">
@@ -68,3 +69,4 @@ export default {
 </script>
 <style>
 </style>
+-->
