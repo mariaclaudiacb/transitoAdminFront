@@ -5,7 +5,10 @@
         <sidebar-link to="/incluirUsuario" name=" Incluir Usuário" icon="ti-user"/>
         <sidebar-link to="/icons" name="Icons" icon="ti-pencil-alt2"/>
         <li  @click="logout" class="nav-item router-link-exact-active active">
-          <a class="nav-link"><i class="ti-power-off"></i><sidebar-link> Sair</sidebar-link></a>
+          <a class="nav-link"><i class="ti-power-off"></i>
+          <p>Sair</p>
+          <!-- <sidebar-link> Sair</sidebar-link>-->
+          </a> 
         </li>
       </template>
       
@@ -40,7 +43,7 @@ export default {
       }
     },
     logout(){
-      debugger
+      
       if(localStorage.getItem('token') != null){
         //vc deveria remover do vuex
         localStorage.removeItem('token')
