@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-
+import * as services from '@/service/dividaAtivaService'
 
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -14,53 +14,64 @@ export default new Vuex.Store({
         }
     },
     mutations:{
-        auth_request(state){
+        auth_request(state) {
             state.status= 'loading'
         },
-        auth_success(state,token, user){
-            state.status='success',
-            state.token= token,
-            state.user = user.username
+        auth_success(state, dados) {
+            state.status ='success',
+            state.token = dados.token,
+            state.user = dados.user
         },
-        auth_erro(state){
+        auth_erro(state) {
             state.status = 'error'
         }, 
-        logout(state){
+        logout(state) {
             state.status= ''
             state.token=''
         }
     },
     actions:{
-        login({commit}, user){
+        attemptLogin ({dispatch, commit}, user) {
             return new Promise((resolve,reject) =>{
-                commit(auth_request)
-                axios({url: 'http://localhost:8081/login', data:(user.username, user.password), method: 'POST'})
+                services.postLogin(user)
                 .then(resp=>{
                     const token = resp.data.token
-                    const user = resp.data.user.username
+                    console.log("logado")    
+                    // TODO: Verificar se o token tem ROLE_CIASC. Caso não tenha, gerar mensagem de erro e não executar as linhas abaixo
                     localStorage.setItem('token', token)
+                    commit('auth_success', { token, user: user.username })
                     axios.defaults.headers.common['Authorization'] = token
-                    commit('auth_sccess',token, user)
                     resolve(resp)
-                })
+                    })
                 .catch(err =>{
-                    commit('auth_error')
+                    console.log('erro login')
                     localStorage.removeItem('token')
                     reject(err)
                 })
             })
         },
-        logout({commit}){
-            return new Promise((resolve, reject)=> {
-                commit('logout')
-                localStorage.removeItem('token')
-                delete axios.defaults.headers.common['Authorization']
-                resolve()
-            })
+    
+        attemptLogout({commit}){
+            localStorage.removeItem('token')         
+            
+            delete axios.defaults.headers.common['Authorization']
+            return commit('logout')
+        },
+        attemptAddUser({commit}){
+            
         }
     },
     getters:{
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
+        isRoleCiasc () {
+            if (!Vue.$jwt.hasToken()) {
+              return false
+            }
+
+            const decoded = Vue.$jwt.decode()
+            
+            return decoded.roles.indexOf('ROLE_CIASC') >= 0
+        } 
     }
 })

@@ -6,7 +6,7 @@
         <div class="col-xl-5 col-lg-7 col-md-6">
             <card class="card" title="Login">
                 <div>
-                    <form @submit.prevent>
+                    <form class="login" @submit.prevent="login">
                         <div class="col-md-10">
                             <fg-input type="email" label="Email" v-model="username" placeholder="Email" required autofocus/>
                         </div>
@@ -15,7 +15,7 @@
                         </div>
                         <div class="text-center">
                         <button type="submit" round @click="handleSubmit">
-                                Entrar
+                                ENTRAR
                         </button>
                         </div>
                     </form>                       
@@ -37,17 +37,19 @@
             handleSubmit(e){
                 e.preventDefault()
                 if(this.password.length > 0){
-                   console.log(this.username)
-                   this.$http.post('http://localhost:8080/login',{
+                              
+                    this.$store.dispatch('attemptLogin',{
                         username : this.username,
                         password: this.password,
                         
                     })
                     .then(response=> {
-                        //vc deveria guardar no vuex
-                        localStorage.setItem('token', response.data.token)
                         this.$router.push('/dashboard')     
+                    },
+                    erro=>{
+                        console.log(erro)
                     })
+                    
                 }
             }        
         }

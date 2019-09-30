@@ -9,7 +9,7 @@ import NotFound from "@/pages/NotFoundPage.vue";
 import UserProfile from "@/pages/UserProfile.vue";
 import Login from "@/layout/login/Login.vue";
 import Icons from "@/pages/Icons.vue";
-
+import store from '@/store'
 
 const routes = [
   {
@@ -35,23 +35,33 @@ const routes = [
       {
         path: "/incluirUsuario",
         name: "incluirUsuario",
-        component: UserProfile
+        component: UserProfile,
+        meta: { 
+          requiresAuth: true
+        }
         
       },
       {
         path: "/icons",
         name: "icons",
-        component: Icons
+        component: Icons,
+        meta: { 
+          requiresAuth: true
+        }
       }
     ]
   },
-  /*{
+  {
     name: 'logout',
     path: '/logout',
     meta: {
       requiresAuth: true
+    },
+    beforeEnter: (to, from, next) => {
+      store.dispatch('attemptLogout')
+      return next({ name: 'login' })
     }
-  },*/
+  },
   { path: "*", component: NotFound }
 ];
 

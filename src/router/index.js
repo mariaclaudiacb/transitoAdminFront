@@ -5,29 +5,41 @@ import store from '@/store.js'
 
 Vue.use(VueRouter);
 
-// configure router
 const router = new VueRouter({
-  routes, // short for routes: routes
+  routes, 
   linkActiveClass: "active"
 });
 router.beforeEach((to, from, next) => {
-  if(to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.getters.isLoggedIn) {
+
+  const requiresAuth = to.meta.requiresAuth === true
+
+  if (!requiresAuth) {
+    if (!store.getters.isLoggedIn) {
+      console.log('não logado')
+      next()
+      return
+    } else {
+        
+      next({ path: '/dashboard' })
+    }
+  }
+  else {
+
+    if (!Vue.$jwt.hasToken()) {
+      return false
+    }
+    const decoded = Vue.$jwt.decode()
+    
+    if (decoded.roles.indexOf('ROLE_CIASC') >= 0) {
       next()
       return
     }
-    next({
-      path: '/login',
-      params: { nextUrl: to.fullPath }
-    })
-  }  else {
-      console.log('Next')
-      next() 
+    else {
+      store.dispatch('attemptLogout').then(() => {
+        console.log('Não autorizado')
+
+      })
+    }
   }
 })
-
-/*store.dispatch('logout')
-return next({ path: '/login',
-params: { nextUrl: to.fullPath }})*/
-
 export default router;
