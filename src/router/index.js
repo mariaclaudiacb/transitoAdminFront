@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import routes from "./routes";
-import store from '@/store.js'
+import store from '@/store.js';
+
 
 Vue.use(VueRouter);
 
@@ -35,9 +36,7 @@ router.beforeEach((to, from, next) => {
       return
     }
     else {
-      store.dispatch('attemptLogout').then(() => {
-        console.log('Não autorizado')
-
+      store.dispatch('attemptLogout').then(() => {                
       })
     }
   }

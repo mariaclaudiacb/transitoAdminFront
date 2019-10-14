@@ -28,13 +28,14 @@ const routes = [
   {
     path: "/dashboard",
     component: DashboardLayout,
+    name: "Dashboard",
     meta: { 
       requiresAuth: true
     },
     children: [
       {
         path: "/incluirUsuario",
-        name: "incluirUsuario",
+        name: "incluir Usuário",
         component: UserProfile,
         meta: { 
           requiresAuth: true

@@ -11,6 +11,12 @@ export default new Vuex.Store({
         user:{
             username:"",
             password:""
+        },
+        inclusaoUsuario:{
+            usuario:"",
+            orgaoDenatranId:"",
+            autorizacao:"",
+                      
         }
     },
     mutations:{
@@ -25,6 +31,10 @@ export default new Vuex.Store({
         auth_erro(state) {
             state.status = 'error'
         }, 
+        addUser_success(state, dados){
+            state.status='Adcionado com Sucesso',
+            state.inclusaoUsuario = dados
+        },
         logout(state) {
             state.status= ''
             state.token=''
@@ -34,17 +44,19 @@ export default new Vuex.Store({
         attemptLogin ({dispatch, commit}, user) {
             return new Promise((resolve,reject) =>{
                 services.postLogin(user)
-                .then(resp=>{
+                .then(resp=>{                    
                     const token = resp.data.token
-                    console.log("logado")    
-                    // TODO: Verificar se o token tem ROLE_CIASC. Caso não tenha, gerar mensagem de erro e não executar as linhas abaixo
                     localStorage.setItem('token', token)
+                    const decoded = Vue.$jwt.decode()
+                    if(decoded.roles.indexOf('ROLE_CIASC') >= 0){
                     commit('auth_success', { token, user: user.username })
                     axios.defaults.headers.common['Authorization'] = token
                     resolve(resp)
+                    }else{
+                        throw "Não autorizado"
+                    }
                     })
                 .catch(err =>{
-                    console.log('erro login')
                     localStorage.removeItem('token')
                     reject(err)
                 })
@@ -57,8 +69,22 @@ export default new Vuex.Store({
             delete axios.defaults.headers.common['Authorization']
             return commit('logout')
         },
-        attemptAddUser({commit}){
-            
+        attemptAddUser({dispatch, commit}, inclusaoUsuario){
+            return new Promise((resolve, reject) =>{
+               
+                services.postAddUser(inclusaoUsuario)
+                .then(resp=>{
+                    console.log('incluiu')
+                    commit('addUser_success',inclusaoUsuario)
+                     resolve(resp)
+                })
+               
+                .catch(err =>{
+                    console.log('erro ao adicionar usuário')
+                    reject(err)
+                })
+                
+            })
         }
     },
     getters:{

@@ -20,11 +20,17 @@ import Axios from 'axios';
 import VueJWT from 'vuejs-jwt';
 import store from '@/store.js'
 import PaperDashboard from "./plugins/paperDashboard";
+import VueAlertify from 'vue-alertify'
 import "vue-notifyjs/themes/default.css";
+import { mixin } from './mixins/index'
 
-Vue.prototype.$http = Axios;
-Vue.use(PaperDashboard);
-Vue.use(VueJWT, { keyName: 'token' }) ;
+
+Vue.prototype.$http = Axios
+Vue.use(PaperDashboard)
+Vue.use(VueAlertify)
+Vue.use(VueJWT, { keyName: 'token' }) 
+Vue.mixin(mixin)
+
 
 /* eslint-disable no-new */
 new Vue({

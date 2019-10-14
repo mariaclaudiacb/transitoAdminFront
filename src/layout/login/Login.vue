@@ -14,9 +14,9 @@
                             <fg-input type="password" label="Password" v-model="password" placeholder="Senha" required/>
                         </div>
                         <div class="text-center">
-                        <button type="submit" round @click="handleSubmit">
+                        <p-button type="submit" round @click.native="handleSubmit">
                                 ENTRAR
-                        </button>
+                        </p-button>
                         </div>
                     </form>                       
                 </div>
@@ -47,7 +47,8 @@
                         this.$router.push('/dashboard')     
                     },
                     erro=>{
-                        console.log(erro)
+                        const msgErro = this.trataErro(erro) // mixin
+                        this.$alertify.error(msgErro)
                     })
                     
                 }

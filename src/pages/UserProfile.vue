@@ -11,10 +11,10 @@
     </div>
 </template>
 <script>
-import EditProfileForm from "./UserProfile/EditProfileForm.vue";
+import IncluirUsuario from "./UserProfile/IncluirUsuario.vue";
 export default {
   components: {
-    EditProfileForm,
+    IncluirUsuario,
     //UserCard,
     //MembersCard
   }
