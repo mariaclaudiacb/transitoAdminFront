@@ -27,3 +27,8 @@ export const getOrgaosDenatran = () =>{
   return http.get('/admin/roles')
 
  }
+ export const getHistorico =(id)=>{
+  http.defaults.headers.common['Authorization'] = store.state.token
+  return http.get(`/admin/historicoAutoDetalhado/${id}`)
+
+ }

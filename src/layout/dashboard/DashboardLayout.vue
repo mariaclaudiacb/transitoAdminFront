@@ -4,8 +4,10 @@
       <template slot="links">
         <sidebar-link to="/dashboard" name= "Dashboard" icon="ti-home"/>
         <sidebar-link to="/incluirUsuario" name=" Incluir Usuário" icon="ti-user"/>
+        <sidebar-link to="/historicoInfracoes" name=" Histórico de Infrações" icon="ti-folder"/>
         <sidebar-link to="/icons" name="Icons" icon="ti-pencil-alt2"/>
         <sidebar-link to='/logout' name="Sair" icon="ti-power-off" />
+        
         <!--<li  @click="logout" class="nav-item router-link-exact-active active">
          <span v-if="isLoggedIn">
           <a class="nav-link"><i class="ti-power-off"></i>

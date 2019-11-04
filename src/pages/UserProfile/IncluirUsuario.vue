@@ -1,47 +1,57 @@
 <template>
-  <card class="card" title="Inclusão de Usuários">
-    <div>
-      <form @submit.prevent>
-        <div class="row">
-          <div class="col-md-8">
-            <fg-input type="email" label="Username" placeholder="Email" v-model="userAdc.usuario"></fg-input>
-          </div>
-        </div>
-        <div class="box">
-          <label>Orgao Denatran</label>
-          <br />
-          <select v-model="userAdc.orgaoDenatranId">
-            <option
-            selected
-              v-for="orgao in orgaosDenatran"
-              v-bind:key="orgao.id"
-              :value="orgao.id"
-            >{{orgao.nome}}</option>
-          </select>
-        </div>
+  <div class="row">
+    <div class="col-xl-4 col-lg-5 col-md-6">
+      <card class="card" title="Inclusão de Usuários">
+        <div>
+          <form @submit.prevent>
+            <div class="row">
+              <div class="col-md-8">
+                <fg-input
+                  type="email"
+                  label="Username"
+                  placeholder="Email"
+                  v-model="userAdc.usuario"
+                ></fg-input>
+              </div>
+            </div>
+            <div class="box">
+              <label>Orgao Denatran</label>
+              <br />
+              <select v-model="userAdc.orgaoDenatranId">
+                <option
+                  selected
+                  v-for="orgao in orgaosDenatran"
+                  v-bind:key="orgao.id"
+                  :value="orgao.id"
+                >{{orgao.nome}}</option>
+              </select>
+            </div>
 
-        <br />
-        <div class="box">
-          <label>Autorização</label>
+            <br />
+            <div class="box">
+              <label>Autorização</label>
 
-          <br />
+              <br />
 
-          <select v-model="userAdc.autorizacao">
-            <option selected 
-            v-for="role in roles"
-            v-bind:key="role.id" 
-            :value="role.nome"
-            >{{role.nome}}</option>
-          </select>
+              <select v-model="userAdc.autorizacao">
+                <option
+                  selected
+                  v-for="role in roles"
+                  v-bind:key="role.id"
+                  :value="role.nome"
+                >{{role.nome}}</option>
+              </select>
+            </div>
+            <br />
+            <div class="text-center">
+              <p-button type="info" round @click.native="updateProfile">Incluir Usuário</p-button>
+            </div>
+            <div class="clearfix"></div>
+          </form>
         </div>
-        <br />
-        <div class="text-center">
-          <p-button type="info" round @click.native="updateProfile">Incluir Usuário</p-button>
-        </div>
-        <div class="clearfix"></div>
-      </form>
+      </card>
     </div>
-  </card>
+  </div>
 </template>
 <script>
 import { getOrgaosDenatran } from "../../service/dividaAtivaService";
@@ -63,9 +73,9 @@ export default {
     getOrgaosDenatran().then(response => {
       this.orgaosDenatran = response.data;
     }),
-      getRoles().then(response => {
+    getRoles().then(response => {
         this.roles = response.data;
-      });
+    });
   },
   methods: {
     updateProfile() {

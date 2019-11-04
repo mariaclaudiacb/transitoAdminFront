@@ -17,6 +17,10 @@ export default new Vuex.Store({
             orgaoDenatranId:"",
             autorizacao:"",
                       
+        },
+        idHistorico:{
+            id:"",
+            events:[]
         }
     },
     mutations:{
@@ -38,6 +42,10 @@ export default new Vuex.Store({
         logout(state) {
             state.status= ''
             state.token=''
+        },
+        historico(state,dados){
+            state.status='',
+            state.idHistorico=dados
         }
     },
     actions:{
@@ -84,6 +92,16 @@ export default new Vuex.Store({
                     reject(err)
                 })
                 
+            })
+        },
+        attemptIdHistorico({commit,dispatch}, idHistorico){
+            services.getHistorico(idHistorico)
+            .then(resp=>{
+                commit('historico', idHistorico)
+                resolve(resp)
+            })
+            .catch(err =>{
+                reject(err)
             })
         }
     },

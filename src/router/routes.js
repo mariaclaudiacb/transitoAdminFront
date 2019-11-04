@@ -6,8 +6,9 @@ import NotFound from "@/pages/NotFoundPage.vue";
 
 // Admin pages
 
-import UserProfile from "@/pages/UserProfile.vue";
+import IncluirUsuario from "@/pages/UserProfile/IncluirUsuario.vue";
 import Login from "@/layout/login/Login.vue";
+import Timeline from "@/pages/Timeline.vue";
 import Icons from "@/pages/Icons.vue";
 import store from '@/store'
 
@@ -36,11 +37,19 @@ const routes = [
       {
         path: "/incluirUsuario",
         name: "incluir Usuário",
-        component: UserProfile,
+        component: IncluirUsuario,
         meta: { 
           requiresAuth: true
         }
         
+      },
+      {
+        path: "/historicoInfracoes",
+        name: "histórico de Infrações",
+        component: Timeline,
+        meta:{
+          requiresAuth:true
+        }
       },
       {
         path: "/icons",

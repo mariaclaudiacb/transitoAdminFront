@@ -11,7 +11,7 @@
     </div>
 </template>
 <script>
-import IncluirUsuario from "./UserProfile/IncluirUsuario.vue";
+import IncluirUsuario from "@/pages/UserProfile/IncluirUsuario.vue";
 export default {
   components: {
     IncluirUsuario,

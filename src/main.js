@@ -23,6 +23,7 @@ import PaperDashboard from "./plugins/paperDashboard";
 import VueAlertify from 'vue-alertify'
 import "vue-notifyjs/themes/default.css";
 import { mixin } from './mixins/index'
+import './filters.js'
 
 
 Vue.prototype.$http = Axios
