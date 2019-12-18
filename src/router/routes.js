@@ -9,8 +9,10 @@ import NotFound from "@/pages/NotFoundPage.vue";
 import IncluirUsuario from "@/pages/UserProfile/IncluirUsuario.vue";
 import Login from "@/layout/login/Login.vue";
 import Timeline from "@/pages/Timeline.vue";
+import BaixaCDA from "@/pages/BaixaCDA.vue";
 import Icons from "@/pages/Icons.vue";
 import store from '@/store'
+import { getBaixaCDA } from "../service/dividaAtivaService";
 
 const routes = [
   {
@@ -50,6 +52,15 @@ const routes = [
         meta:{
           requiresAuth:true
         }
+      },
+      { 
+        path: "/baixaCDA",
+        name: "Baixa de CDA",
+        component: BaixaCDA,
+        meta:{
+          requiresAuth:true
+        }
+      
       },
       {
         path: "/icons",

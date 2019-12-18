@@ -16,7 +16,6 @@ router.beforeEach((to, from, next) => {
 
   if (!requiresAuth) {
     if (!store.getters.isLoggedIn) {
-      console.log('não logado')
       next()
       return
     } else {

@@ -20,7 +20,7 @@
               <select v-model="userAdc.orgaoDenatranId">
                 <option
                   selected
-                  v-for="orgao in orgaosDenatran"
+                  v-for="orgao in listaOrgaosDenatran"
                   v-bind:key="orgao.id"
                   :value="orgao.id"
                 >{{orgao.nome}}</option>
@@ -65,13 +65,13 @@ export default {
         orgaoDenatranId: "",
         autorizacao: ""
       },
-      orgaosDenatran: [],
+      listaOrgaosDenatran: [],
       roles: []
     };
   },
   mounted() {
     getOrgaosDenatran().then(response => {
-      this.orgaosDenatran = response.data;
+      this.listaOrgaosDenatran = response.data;
     }),
     getRoles().then(response => {
         this.roles = response.data;
@@ -99,7 +99,7 @@ export default {
 }
 
 .box select {
-  background-color: #fdfaec;
+  background-color: #fffcf2;
   color: black;
   padding: 0.5%;
   width: 36%;

@@ -5,6 +5,7 @@
         <sidebar-link to="/dashboard" name= "Dashboard" icon="ti-home"/>
         <sidebar-link to="/incluirUsuario" name=" Incluir Usuário" icon="ti-user"/>
         <sidebar-link to="/historicoInfracoes" name=" Histórico de Infrações" icon="ti-folder"/>
+        <sidebar-link to="baixaCDA" name="Baixa de CDA" icon="ti-import"/>
         <sidebar-link to="/icons" name="Icons" icon="ti-pencil-alt2"/>
         <sidebar-link to='/logout' name="Sair" icon="ti-power-off" />
         

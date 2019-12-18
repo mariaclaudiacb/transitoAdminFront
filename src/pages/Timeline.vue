@@ -28,10 +28,10 @@
             Ação: {{event.action}}
             
             <br>
-          <template v-if="event.alteracoes">  
+          <template v-if="event.alteracoes" >  
             Alterações:
           <ul  class="itens">
-          <li v-for="(alteracao,index) in event.alteracoes" v-html="alteracao" :key="index" | dateTime>
+          <li v-for="(alteracao,index) in event.alteracoes " v-html="alteracao" :key="index">
                       </li>
         </ul>
         </template>
@@ -40,7 +40,7 @@
         <ul v-if="event.itens" class="itens">
           <li v-for="(item,index) in event.itens" v-html="item" :key="index"></li>
         </ul>
-        <span class="cd-date">Data: {{event.modifiedDate | dateTime}}</span>
+        <span class="cd-date">Data: {{event.modifiedDate  | dateTime}}</span>
       </div>
     </div>
   </section>
